@@ -92,26 +92,79 @@ domain in it; it is deployed with the site and does no harm.
 
 ## Writing a post
 
-Create `content/<anything>.md` with a front matter block:
+Step by step, from blank file to live page:
 
-```markdown
----
-title: Hello, world
-date: 2026-09-21
-slug: hello-world
-description: One or two sentences for search results and the feed.
----
+1. Create a Markdown file in `content/`. The file name does not matter, the
+   `slug` inside does:
 
-## First heading
+   ```sh
+   $EDITOR content/my-first-post.md
+   ```
 
-Body starts here. Headings start at `##` because the title is the `<h1>`.
-```
+2. Start it with a front matter block, then the body:
 
-- `slug` becomes the URL: `posts/hello-world/`. Lowercase letters, digits and hyphens only.
-- `published` is optional. The script adds `published: true` on first publish.
-  Set `published: false` to keep a draft off the site; if the post was already
-  published, its page is removed and a delete commit is proposed.
-- Raw HTML passes through, so a post can carry `<script>`, `<style>` or `<canvas>`.
+   ```markdown
+   ---
+   title: My first post
+   date: 2026-09-21
+   slug: my-first-post
+   description: One or two sentences for search results and the feed.
+   ---
+
+   ## First heading
+
+   Body starts here. Headings start at `##` because the title is the `<h1>`.
+   ```
+
+   - `title`, `date` (`YYYY-MM-DD`), `slug` and `description` are required.
+   - `slug` becomes the URL: `posts/my-first-post/`. Lowercase letters, digits
+     and hyphens only.
+   - Images can point anywhere, a URL or a file on disk; see below.
+
+3. Preview if you like: any Markdown previewer works, and image paths resolve
+   from `content/`. There is no local server to run.
+
+4. Publish:
+
+   ```sh
+   scripts/publish.sh        # Linux, macOS
+   scripts/publish.ps1       # Windows
+   ```
+
+   The script renders `posts/my-first-post/index.html`, fetches the images,
+   adds `published: true` to the front matter, regenerates `index.html`,
+   `feed.xml` and `sitemap.xml`, shows the staged files and asks:
+
+   ```
+   publish my-first-post
+     https://example.com/shot.png -> assets/posts/my-first-post/01.png
+   A  assets/posts/my-first-post/01.png
+   M  content/my-first-post.md
+   ...
+   Commit "feat(blog): publish My first post"? [y/N] y
+     committed: feat(blog): publish My first post
+   1 change(s)
+   ```
+
+   Answer `y` to commit. Anything else leaves the files staged so you can
+   inspect them, then run the script again.
+
+5. Push. GitHub Pages deploys the commit and the post is live at
+   `SITE_URL/posts/my-first-post/` a minute later.
+
+   ```sh
+   git push
+   ```
+
+To edit a post later, change the Markdown and run the script again; it
+notices the change and proposes a `fix(blog): edit` commit. To take a post
+down, set `published: false` in its front matter and run the script; the page
+is removed and a `chore(blog): delete` commit is proposed. Drafts work the
+same way: a new file with `published: false` is left alone until you remove
+the line or set it to `true`.
+
+Raw HTML passes through, so a post can carry `<script>`, `<style>` or
+`<canvas>` when it needs them. The sample post has an example.
 
 ### Images
 
