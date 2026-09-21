@@ -1,0 +1,61 @@
+/* Pure Blog: edit freely, nothing here is required by the scripts */
+:root {
+    --ink: #1a1a1a;
+    --muted: #666;
+    --line: #ddd;
+    --code: #f4f4f4;
+    --link: #0645ad;
+}
+
+body {
+    max-width: 40rem;
+    margin: 0 auto;
+    padding: 1rem;
+    color: var(--ink);
+    font-family: Georgia, "Times New Roman", serif;
+    line-height: 1.6;
+}
+
+a { color: var(--link); }
+
+.site-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--line);
+}
+
+.site-title {
+    font-weight: bold;
+    text-decoration: none;
+    color: var(--ink);
+}
+
+.site-header nav a { margin-left: 1rem; }
+
+footer {
+    margin-top: 3rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid var(--line);
+    color: var(--muted);
+    font-size: 0.9rem;
+}
+
+/* Post list on the landing page */
+.posts { list-style: none; padding: 0; }
+.posts li { margin: 0.5rem 0; }
+.posts time { color: var(--muted); font-variant-numeric: tabular-nums; margin-right: 0.5rem; }
+
+/* Post page */
+.post__meta { color: var(--muted); }
+
+/* Block: prose (HTML generated from Markdown, so element selectors are scoped here) */
+.prose img,
+.prose canvas { max-width: 100%; height: auto; }
+.prose code { font-family: Menlo, Consolas, monospace; font-size: 0.9em; }
+.prose pre { padding: 0.75rem; overflow-x: auto; background: var(--code); }
+.prose blockquote { margin: 1rem 0; padding: 0 1rem; border-left: 3px solid var(--line); color: var(--muted); }
+.prose table { border-collapse: collapse; }
+.prose th, .prose td { padding: 0.25rem 0.5rem; border: 1px solid var(--line); }

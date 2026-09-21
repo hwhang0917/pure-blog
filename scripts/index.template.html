@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<!-- Landing page template. Placeholders come from blog.conf; POSTS is the post list. See README. -->
+<html lang="{{SITE_LANG}}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{SITE_TITLE}}</title>
+    <meta name="description" content="{{SITE_DESCRIPTION}}">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+    <link rel="alternate" type="application/atom+xml" title="{{SITE_TITLE}}" href="feed.xml">
+    <link rel="canonical" href="{{SITE_URL}}/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="{{SITE_TITLE}}">
+    <meta property="og:url" content="{{SITE_URL}}/">
+    <meta property="og:title" content="{{SITE_TITLE}}">
+    <meta property="og:description" content="{{SITE_DESCRIPTION}}">
+</head>
+
+<body>
+    <header class="site-header">
+        <a class="site-title" href="./">{{SITE_TITLE}}</a>
+        <nav>
+            <a href="feed.xml">Feed</a>
+            <a href="{{AUTHOR_URL}}">{{AUTHOR_NAME}}</a>
+        </nav>
+    </header>
+
+    <main>
+        <p>{{SITE_DESCRIPTION}}</p>
+        <h2 id="posts">Posts</h2>
+        <ul class="posts">
+            {{POSTS}}
+        </ul>
+    </main>
+
+    <footer>
+        <p>&copy; {{AUTHOR_NAME}}</p>
+    </footer>
+</body>
+
+</html>

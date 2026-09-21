@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>Pure Blog</title>
+    <subtitle>A blog made of plain HTML, CSS and Markdown.</subtitle>
+    <link rel="alternate" type="text/html" href="https://example.com/"/>
+    <link rel="self" type="application/atom+xml" href="https://example.com/feed.xml"/>
+    <id>https://example.com/</id>
+    <updated>2026-09-21T00:00:00+00:00</updated>
+    <author>
+        <name>hwhang0917</name>
+        <uri>https://github.com/hwhang0917</uri>
+    </author>
+    <entry>
+        <title>Hello, world</title>
+        <link rel="alternate" type="text/html" href="https://example.com/posts/hello-world/"/>
+        <id>https://example.com/posts/hello-world/</id>
+        <published>2026-09-21T00:00:00+00:00</published>
+        <updated>2026-09-21T00:00:00+00:00</updated>
+        <summary>The first post, and a tour of what a post can contain.</summary>
+    </entry>
+</feed>

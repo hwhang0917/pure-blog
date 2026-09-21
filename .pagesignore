@@ -1,0 +1,11 @@
+# Paths left out of the GitHub Pages artifact (rsync exclude syntax)
+.git/
+.github/
+.gitignore
+.pagesignore
+scripts/
+content/
+blog.conf
+README.md
+LICENSE
+_site/

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<!-- Post page template. TITLE, DESCRIPTION, DATE, SLUG and BODY come from the post's front
+     matter and body, the rest from blog.conf; see README. Paths are relative to posts/<slug>/. -->
+<html lang="{{SITE_LANG}}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{TITLE}} | {{SITE_TITLE}}</title>
+    <meta name="description" content="{{DESCRIPTION}}">
+    <link rel="stylesheet" href="../../style.css">
+    <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+    <link rel="alternate" type="application/atom+xml" title="{{SITE_TITLE}}" href="../../feed.xml">
+    <link rel="canonical" href="{{SITE_URL}}/posts/{{SLUG}}/">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="{{SITE_TITLE}}">
+    <meta property="og:url" content="{{SITE_URL}}/posts/{{SLUG}}/">
+    <meta property="og:title" content="{{TITLE}} | {{SITE_TITLE}}">
+    <meta property="og:description" content="{{DESCRIPTION}}">
+    <meta property="article:published_time" content="{{DATE}}">
+    <meta property="article:author" content="{{AUTHOR_URL}}">
+    <!-- source sha1: {{SHA1}} -->
+</head>
+
+<body>
+    <header class="site-header">
+        <a class="site-title" href="../../">{{SITE_TITLE}}</a>
+        <nav>
+            <a href="../../#posts">Posts</a>
+            <a href="{{AUTHOR_URL}}">{{AUTHOR_NAME}}</a>
+        </nav>
+    </header>
+
+    <main>
+        <article class="post">
+            <h1 class="post__title">{{TITLE}}</h1>
+            <p class="post__meta"><time datetime="{{DATE}}">{{DATE}}</time></p>
+            <div class="prose">
+                {{BODY}}
+            </div>
+        </article>
+    </main>
+
+    <footer>
+        <p>&copy; {{AUTHOR_NAME}}</p>
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,44 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+    # Mirrors .pagesignore: pushes that only touch repo-only files don't deploy
+    paths-ignore:
+      - '.github/**'
+      - '.gitignore'
+      - '.pagesignore'
+      - 'scripts/**'
+      - 'content/**'
+      - 'blog.conf'
+      - 'README.md'
+      - 'LICENSE'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# One deploy at a time; a newer push cancels an in-flight one
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/configure-pages@v6
+      # Static site: no build, just copy everything except repo-only files
+      - name: Stage site
+        run: rsync -a --exclude-from=.pagesignore ./ _site/
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: _site
+      - id: deploy
+        uses: actions/deploy-pages@v5

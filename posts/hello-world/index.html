@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<!-- Post page template. TITLE, DESCRIPTION, DATE, SLUG and BODY come from the post's front
+     matter and body, the rest from blog.conf; see README. Paths are relative to posts/<slug>/. -->
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hello, world | Pure Blog</title>
+    <meta name="description" content="The first post, and a tour of what a post can contain.">
+    <link rel="stylesheet" href="../../style.css">
+    <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+    <link rel="alternate" type="application/atom+xml" title="Pure Blog" href="../../feed.xml">
+    <link rel="canonical" href="https://example.com/posts/hello-world/">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Pure Blog">
+    <meta property="og:url" content="https://example.com/posts/hello-world/">
+    <meta property="og:title" content="Hello, world | Pure Blog">
+    <meta property="og:description" content="The first post, and a tour of what a post can contain.">
+    <meta property="article:published_time" content="2026-09-21">
+    <meta property="article:author" content="https://github.com/hwhang0917">
+    <!-- source sha1: 919ac1fa4301d8eba066ad0a17b0a829cd548c6c -->
+</head>
+
+<body>
+    <header class="site-header">
+        <a class="site-title" href="../../">Pure Blog</a>
+        <nav>
+            <a href="../../#posts">Posts</a>
+            <a href="https://github.com/hwhang0917">hwhang0917</a>
+        </nav>
+    </header>
+
+    <main>
+        <article class="post">
+            <h1 class="post__title">Hello, world</h1>
+            <p class="post__meta"><time datetime="2026-09-21">2026-09-21</time></p>
+            <div class="prose">
+                <h2>What this is</h2>
+                <p>A post is a Markdown file in <code>content/</code>. The block at the top is the front matter: <code>title</code>, <code>date</code>, <code>slug</code> and <code>description</code> are required. <code>slug</code> becomes the URL, <code>posts/hello-world/</code> here.</p>
+                <p>Run <code>scripts/publish.sh</code> (or <code>scripts/publish.ps1</code> on Windows) and this file turns into a page, the landing page, feed and sitemap get updated, and a commit is proposed.</p>
+                <h2>Things a post can hold</h2>
+                <p>Code blocks keep their whitespace:</p>
+                <pre><code class="language-sh">$ scripts/publish.sh
+publish hello-world
+</code></pre>
+                <p>Lists, quotes and tables:</p>
+                <ul>
+                    <li>One</li>
+                    <li>Two<ul>
+                        <li>Nested</li>
+                    </ul>
+                    </li>
+                </ul>
+                <blockquote>
+                    <p>A quote.</p>
+                </blockquote>
+                <table>
+                <thead>
+                <tr>
+                <th>Key</th>
+                <th>Value</th>
+                </tr>
+                </thead>
+                <tbody><tr>
+                <td><code>published</code></td>
+                <td><code>false</code> keeps a draft off the site</td>
+                </tr>
+                </tbody></table>
+                <p>Images are picked up automatically. The one below was written as an ordinary Markdown image pointing at a URL on another site. On publish the script downloaded it into <code>assets/posts/hello-world/</code> as <code>01.png</code> and rewrote the link to point there. A local path such as <code>![alt](shot.png)</code>, relative to <code>content/</code>, is copied the same way.</p>
+                <p><img src="../../assets/posts/hello-world/01.png" alt="RunFridge"></p>
+                <p>Raw HTML passes through, so <code>&lt;canvas&gt;</code>, <code>&lt;script&gt;</code> and <code>&lt;style&gt;</code> tags work when a post needs them. The square below is drawn by a few lines of script at the end of this file.</p>
+                <p><canvas id="demo" width="320" height="120" aria-label="A square bouncing left and right"></canvas></p>
+                <script>
+                (function () {
+                    var canvas = document.getElementById('demo'), c = canvas.getContext('2d');
+                    var x = 0, dx = 2, size = 40;
+                    function frame() {
+                        c.clearRect(0, 0, canvas.width, canvas.height);
+                        c.fillStyle = '#1a1a1a';
+                        c.fillRect(x, (canvas.height - size) / 2, size, size);
+                        x += dx;
+                        if (x <= 0 || x + size >= canvas.width) dx = -dx;
+                        requestAnimationFrame(frame);
+                    }
+                    if (matchMedia('(prefers-reduced-motion: reduce)').matches) { x = (canvas.width - size) / 2; frame = function () {}; c.fillStyle = '#1a1a1a'; c.fillRect(x, (canvas.height - size) / 2, size, size); }
+                    else frame();
+                })();
+                </script>
+            </div>
+        </article>
+    </main>
+
+    <footer>
+        <p>&copy; hwhang0917</p>
+    </footer>
+</body>
+
+</html>
