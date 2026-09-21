@@ -163,8 +163,57 @@ is removed and a `chore(blog): delete` commit is proposed. Drafts work the
 same way: a new file with `published: false` is left alone until you remove
 the line or set it to `true`.
 
-Raw HTML passes through, so a post can carry `<script>`, `<style>` or
-`<canvas>` when it needs them. The sample post has an example.
+### HTML, CSS and JavaScript in a post
+
+Markdown allows raw HTML and the converter passes it through untouched, so a
+post can carry its own markup, styles and scripts. Nothing in the scripts
+needs to change.
+
+**Inline, for small things.** Put the HTML where it should appear and the
+script after it, so the element exists when the script runs:
+
+```markdown
+## Demo
+
+<div id="out"></div>
+
+<script>
+  document.getElementById("out").textContent = `hi ${1 + 1}`;
+</script>
+```
+
+Blank lines inside `<script>` and `<style>` are fine. Keep the opening tag at
+the start of a line; indented HTML is treated as a code block by Markdown.
+
+**A separate file, for bigger things.** Save it next to the post's images and
+reference it relative to `content/`, the same way images are written:
+
+```markdown
+<script src="../assets/posts/my-first-post/app.js" defer></script>
+<link rel="stylesheet" href="../assets/posts/my-first-post/app.css">
+```
+
+The publish script rewrites `../assets/` to `../../assets/` for the page, so
+the link works both in a preview from `content/` and on the site. Only
+`![…](…)` images are copied automatically; put other files into
+`assets/posts/<slug>/` yourself. The script stages that folder with the post.
+
+**Canvas, the sample post's way.** `content/hello-world.md` ends with a
+`<canvas>` and a short inline script that animates it, and checks
+`prefers-reduced-motion` to draw one still frame instead. Copy that pattern
+for diagrams or demos.
+
+Things to know:
+
+- The rendered page indents the HTML to match the template, but lines inside
+  `<pre>` are left alone, so code blocks are not affected. Script contents
+  gain leading spaces, which JavaScript and CSS do not care about.
+- Everything a post includes is served as-is from GitHub Pages: no bundling,
+  no minification, no content security policy. Loading a library from a CDN
+  with a plain `<script src="https://…">` works.
+- Changing the Markdown, including its scripts, re-renders the page on the
+  next run. Changing a file under `assets/posts/<slug>/` by hand does not
+  touch the page; commit that file yourself.
 
 ### Images
 
